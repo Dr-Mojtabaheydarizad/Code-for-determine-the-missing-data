@@ -1,0 +1,25 @@
+install.packages("mice")
+# Load necessary libraries
+library(readr)
+library(mice)
+
+# The path to the data file
+path <- "D:/Education/Water journal-2/LSTM"
+
+# Set the working directory to the path
+setwd(path)
+
+# Load the data
+data <- read_csv("IRAN.csv")
+
+# Extract input features named A1 to A7 and the target variable named B
+input_features <- data[, paste0("A", 1:7)]
+target_variable <- data[,"B"]
+
+# Apply multiple imputation using mice
+# Note: Specify the method and number of imputations (m) as needed
+imputed_data <- mice(input_features, method = 'pmm', m = 5, maxit = 5)
+
+# Complete the data by filling in the imputations
+completed_data <- complete(imputed_data)
+
